@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 from prophet import Prophet
 import matplotlib.pyplot as plt
 
-st.title("Retail Sales Forecasting Dashboard")
+st.set_page_config(page_title="Retail Sales Forecasting", layout="wide")
+
+st.title("📊 Retail Sales Forecasting Dashboard")
 
 uploaded_file = st.file_uploader("Upload your sales CSV", type=["csv"])
 
@@ -22,14 +23,15 @@ if uploaded_file:
     future = model.make_future_dataframe(periods=20, freq='W')
     forecast = model.predict(future)
 
+    st.subheader("📈 Forecast")
     fig1 = model.plot(forecast)
     st.pyplot(fig1)
 
-    st.subheader("Seasonality Components")
+    st.subheader("📊 Seasonality Components")
     fig2 = model.plot_components(forecast)
     st.pyplot(fig2)
 
-    st.subheader("Off-Season Uplift Simulation")
+    st.subheader("🚀 Off-Season Uplift Simulation")
 
     uplift_percent = st.slider("Increase Off-Season Sales (%)", 0, 20, 5)
 
@@ -41,4 +43,4 @@ if uploaded_file:
 
     uplift_value = forecast_sim['yhat'].sum() - forecast['yhat'].sum()
 
-    st.write("Projected Revenue Uplift:", round(uplift_value, 2))
+    st.success(f"Projected Revenue Uplift: ${uplift_value:,.2f}")
