@@ -1,239 +1,215 @@
-# 🛒 Retail Sales Forecasting & Business Optimization
-End-to-End Time Series Modeling using ARIMA, SARIMA, Holt-Winters & Prophet 
-📌 1. Business Problem
+# 🛒 Walmart Retail Sales Forecasting
 
-Retail businesses experience strong seasonal fluctuations driven by holidays, macroeconomic conditions, and consumer behavior.
+## 📌 Project Overview
 
-The objective of this project is to:
+This project focuses on building an end-to-end retail sales forecasting system using classical time series models and modern forecasting techniques.
 
-Forecast weekly retail sales accurately
+The objective is not only to predict weekly sales accurately, but also to:
 
-Understand trend and seasonal behavior
+- Understand trend and seasonality patterns
+- Identify anomalies
+- Quantify seasonality strength
+- Evaluate macroeconomic impact
+- Simulate off-season uplift strategies
+- Translate forecasts into business insights
 
-Detect anomalies in sales patterns
+This project demonstrates the complete lifecycle of a data science forecasting problem — from exploration to business storytelling.
 
-Quantify seasonality strength
+---
 
-Evaluate macroeconomic impact
+## 🎯 Business Problem
 
-Simulate off-season uplift strategies
+Retail sales are highly seasonal and influenced by holidays, promotions, and economic conditions.
 
-Translate forecasting results into business decisions
+Key questions addressed:
 
-This project goes beyond prediction — it focuses on actionable business insights.
+- How strong is yearly seasonality?
+- Why do sales dip before the holiday spike?
+- Can macroeconomic variables improve predictions?
+- How can off-season performance be improved?
+- Which forecasting model performs best?
 
-📊 2. Dataset Overview
+---
 
-Time Period: 2010–2012
-Frequency: Weekly
-Target Variable: Weekly Sales
+## 📊 Dataset Description
 
-Features:
+Weekly Walmart sales data (2010–2012) including:
 
-Weekly Sales
+- `Weekly_Sales`
+- `Temperature`
+- `Fuel_Price`
+- `CPI`
+- `Unemployment`
+- `Holiday_Flag`
 
-Temperature
+Frequency: Weekly  
+Seasonality: Yearly (52-week cycle)
 
-Fuel Price
+---
 
-Consumer Price Index (CPI)
+## 🔎 Exploratory Data Analysis (EDA)
 
-Unemployment
+Key findings:
 
-Holiday Flag
+- Strong December sales spikes (Christmas effect)
+- Structural drop in January
+- Stable recurring yearly seasonality
+- Moderate correlations with macroeconomic indicators
+- Sales are more seasonality-driven than macro-driven
 
-The dataset exhibits strong yearly seasonality (52-week cycle).
+---
 
-🔎 3. Exploratory Data Analysis (EDA)
+## 📈 Classical & Statistical Models
 
-Key observations:
+The following baseline and statistical models were implemented:
 
-Strong December spikes (Holiday / Christmas effect)
+- Naïve Forecast
+- Moving Average
+- Rolling Mean
+- ARIMA
+- SARIMA
+- Holt-Winters (Triple Exponential Smoothing)
 
-Sharp January dip after holiday season
+### 📊 Model Performance (MAPE Approx.)
 
-Stable recurring yearly seasonal pattern
+| Model | MAPE |
+|-------|------|
+| Naïve | ~7% |
+| Moving Average | ~3% |
+| ARIMA | ~3–4% |
+| SARIMA | ~2.83% |
+| Holt-Winters | **~1.94%** |
 
-Moderate correlation between macroeconomic indicators
+### Key Insight
 
-Weak direct linear correlation between macro variables and sales
+Models that explicitly model seasonality significantly outperform simple autoregressive models.
 
-Presence of occasional anomaly weeks
+Holt-Winters performed best among classical approaches due to stable yearly seasonality.
 
-The data clearly demonstrates deterministic seasonal dominance.
+---
 
-📈 4. Classical & Statistical Time Series Models
+## 🚀 Prophet Model (Meta)
 
-Multiple baseline and statistical models were implemented to benchmark performance.
+Facebook/Meta Prophet was implemented to:
 
-Models Implemented:
+- Capture trend
+- Model yearly seasonality
+- Provide uncertainty intervals
+- Improve interpretability
 
-Naïve Forecast
+**MAPE ≈ 2.35%**
 
-Moving Average
+Prophet provides component-level insights:
 
-Rolling Mean
+- Trend
+- Yearly Seasonality
+- Holiday Effects
+- Uncertainty Intervals
 
-ARIMA
+---
 
-SARIMA
+## 📊 Prophet + Regressors
 
-Holt-Winters (Triple Exponential Smoothing)
+External regressors added:
 
-Model Performance (Approximate MAPE)
-Model	MAPE
-Naïve	~7%
-Moving Average	~3%
-ARIMA	~3–4%
-SARIMA	~2.83%
-Holt-Winters	~1.94%
-Key Findings:
-
-Models that explicitly capture seasonality outperform simple baselines.
-
-ARIMA struggles because it does not directly model seasonality.
-
-Holt-Winters performed best among classical approaches.
-
-Retail demand is cyclic and highly seasonal.
-
-🚀 5. Prophet Model (Meta)
-
-Prophet was implemented to:
-
-Capture trend & yearly seasonality
-
-Automatically detect changepoints
-
-Model holiday effects
-
-Provide uncertainty intervals
-
-MAPE ≈ 2.35%
-
-Prophet provided strong interpretability through:
-
-Trend decomposition
-
-Seasonal component visualization
-
-Forecast uncertainty bands
-
-📊 6. Prophet + External Regressors
-
-Additional regressors were incorporated:
-
-Temperature
-
-Fuel Price
-
-CPI
-
-Unemployment
-
-Holiday Flag
+- Temperature
+- Fuel Price
+- CPI
+- Unemployment
+- Holiday Flag
 
 Result:
-Performance slightly decreased (MAPE ≈ 3.38%).
 
-Interpretation:
-Retail sales are primarily driven by seasonality rather than short-term macroeconomic fluctuations.
+Performance slightly decreased (MAPE ≈ 3.38%), indicating macroeconomic variables have limited short-term predictive impact compared to seasonality.
 
-📏 7. Seasonality Strength Quantification
+Conclusion:
 
-Seasonality strength was computed to measure how much variance is explained by seasonal components.
+Retail sales in this dataset are strongly seasonality-dominated rather than macro-driven.
 
-Finding:
-Yearly seasonality explains a dominant portion of the sales variance.
+---
 
-This confirms:
-Retail demand is structurally seasonal rather than purely trend-driven.
+## 📏 Seasonality Strength Quantification
 
-🔮 8. Scenario Simulation – Off-Season Uplift
+Seasonality strength was calculated to measure how much variance is explained by seasonal components.
 
-To move beyond forecasting, scenario simulations were conducted to:
+Result:
 
-Model potential off-season sales uplift
+Yearly seasonality explains a significant portion of total variance, confirming that December peaks and January drops are structural patterns.
 
-Evaluate impact of strategic promotional interventions
+---
 
-Estimate revenue improvements outside peak periods
+## 🔮 Scenario Simulation – Off-Season Uplift
 
-This transforms the model into a decision-support tool, not just a forecasting engine.
+To move beyond forecasting, scenario simulations were performed to evaluate:
 
-💡 9. Business Insights
+- Potential uplift in non-holiday months
+- Promotional intervention impact
+- Revenue improvement strategies
 
-End-of-year is the strongest revenue driver.
+This transforms forecasting into business decision support.
 
-January dip is structural and predictable.
+---
 
-Macro variables show weak short-term predictive impact.
+## 💡 Business Insights
 
-Seasonality is the dominant factor in retail sales.
+1. End-of-year period is consistently the strongest revenue window.
+2. January sales dip is predictable and structural.
+3. Macro indicators show weak short-term forecasting power.
+4. Seasonality is the dominant sales driver.
+5. Off-season optimization presents growth opportunity.
 
-Largest growth opportunity lies in improving off-season demand.
+---
 
-Promotional optimization during mid-year could increase revenue stability.
+## 🛠 Tech Stack
 
-🛠 10. Tech Stack
+- Python
+- Pandas
+- NumPy
+- Statsmodels
+- Prophet
+- Matplotlib
+- Seaborn
+- Google Colab
 
-Python
+---
 
-Pandas
+## 📂 Project Structure
+Walmart-Retail-Forecasting/
+│
+├── Walmart_Retail_Sales_Forecasting.ipynb
+├── README.md
+├── requirements.txt
+└── data/
 
-NumPy
 
-Statsmodels
+---
 
-Prophet (Meta)
+## 📌 Key Learnings
 
-Matplotlib
+- Importance of stationarity in ARIMA
+- When to use SARIMA vs Holt-Winters
+- How Prophet decomposes trend and seasonality
+- Why adding regressors doesn’t always improve performance
+- Translating statistical models into business insights
 
-Seaborn
+---
 
-Google Colab
+## 🚀 Future Improvements
 
-📊 Evaluation Metrics Used
+- Deploy as a Streamlit dashboard
+- Add automated hyperparameter tuning
+- Build store-level forecasting
+- Integrate promotion calendar effects
+- Convert into production API
 
-MAE (Mean Absolute Error)
+---
 
-RMSE (Root Mean Square Error)
-
-MAPE (Mean Absolute Percentage Error)
-
-🎯 Project Outcome
-
-This project demonstrates:
-
-Strong understanding of time series fundamentals
-
-Model comparison & evaluation
-
-Statistical reasoning
-
-Business-oriented forecasting
-
-Scenario-based simulation thinking
-
-Deployment-ready analytical storytelling
-
-📌 Future Improvements
-
-Store-level hierarchical forecasting
-
-XGBoost / LightGBM time series modeling
-
-LSTM / Deep Learning comparison
-
-Automated hyperparameter tuning
-
-Streamlit deployment dashboard
-
-📜 License
+## 📜 License
 
 This project is licensed under the MIT License.
 
-🚀 Author
+---
 
-[Your Name]
-Data Science & Analytics Enthusiast
+## 🤝 Connect
+
+If you found this project interesting or have suggestions for improvement, feel free to connect and collaborate.
