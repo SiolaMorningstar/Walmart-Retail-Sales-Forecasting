@@ -1,5 +1,5 @@
-🛒 Retail Sales Forecasting & Business Optimization
-End-to-End Time Series Modeling using ARIMA, SARIMA, Holt-Winters & Prophet
+# 🛒 Retail Sales Forecasting & Business Optimization
+End-to-End Time Series Modeling using ARIMA, SARIMA, Holt-Winters & Prophet 
 📌 1. Business Problem
 
 Retail businesses experience strong seasonal fluctuations driven by holidays, macroeconomic conditions, and consumer behavior.
